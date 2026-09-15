@@ -37,16 +37,47 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
     PageBreak, KeepTogether,
 )
-
-
-# ---- User settings ----
-
-LIF_PATH = Path(r"Z:\Himanish\Sutapa_08272026.lif")
-PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
-
+import PySimpleGUI as sg
 
 # ---- General helpers ----
+def getFilePath():
 
+    layout = [
+        [sg.Text("Select a LIF file:")],
+
+        [
+            sg.Input(key="-FILE-", size=(50, 1)),
+            sg.FileBrowse(
+                "Browse",
+                file_types=(("LIF Files", "*.lif"),)
+            )
+        ],
+
+        [sg.Button("OK"), sg.Button("Cancel")]
+    ]
+
+    window = sg.Window("LIF File Selector", layout)
+
+    while True:
+        event, values = window.read()
+
+        if event in (sg.WINDOW_CLOSED, "Cancel"):
+            window.close()
+            return None
+
+        if event == "OK":
+
+            file_path = values["-FILE-"]
+
+            if file_path:
+                window.close()
+                return file_path
+
+            else:
+                sg.popup("Please select a LIF file.")
+
+    window.close()
+  
 def clean_text(value):
     """Convert a value to a clean, stripped, single-line string."""
     if value is None:
@@ -799,6 +830,8 @@ def print_console_report(records):
 # ---- Main ----
 
 def main():
+    LIF_PATH = getFilePath()
+    PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
     print(f"\n{'=' * 80}\nLEICA LIF METADATA EXTRACTOR\n{'=' * 80}")
     print(f"\nInput LIF:\n{LIF_PATH}")
     print("\nLoading LIF metadata...")
