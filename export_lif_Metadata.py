@@ -41,9 +41,7 @@ import PySimpleGUI as sg
 
 
 
-# get file path ##
-LIF_PATH = getFilePath()
-PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
+
 # ---- General helpers ----
 def getFilePath():
 
@@ -749,7 +747,7 @@ def add_group_to_pdf(story, group, group_number, styles):
 
 # ---- Build PDF ----
 
-def build_pdf(records):
+def build_pdf(records, PDF_PATH, LIF_PATH):
     """Generate the grouped PDF. No initial image table, no group-summary table."""
     groups = group_images_by_metadata(records)
     styles = make_pdf_styles()
@@ -832,7 +830,9 @@ def print_console_report(records):
 # ---- Main ----
 
 def main():
-    
+    # get file path ##
+    LIF_PATH = getFilePath()
+    PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
     print(f"\n{'=' * 80}\nLEICA LIF METADATA EXTRACTOR\n{'=' * 80}")
     print(f"\nInput LIF:\n{LIF_PATH}")
     print("\nLoading LIF metadata...")
@@ -868,7 +868,7 @@ def main():
     print_console_report(records)
 
     print("\nGenerating grouped PDF...")
-    build_pdf(records)
+    build_pdf(records, PDF_PATH, LIF_PATH)
 
     print(f"\n{'=' * 80}\nDONE\n{'=' * 80}")
     print(f"\nPDF saved to:\n{PDF_PATH}\n")
