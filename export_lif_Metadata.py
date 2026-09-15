@@ -825,10 +825,10 @@ def print_console_report(records):
 
 
 # ---- Main ----
-
+LIF_PATH = getFilePath()
+PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
 def main():
-    LIF_PATH = getFilePath()
-    PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
+    
     print(f"\n{'=' * 80}\nLEICA LIF METADATA EXTRACTOR\n{'=' * 80}")
     print(f"\nInput LIF:\n{LIF_PATH}")
     print("\nLoading LIF metadata...")
