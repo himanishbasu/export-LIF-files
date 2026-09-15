@@ -71,7 +71,7 @@ def getFilePath():
 
             if file_path:
                 window.close()
-                return file_path
+                return Path(file_path)
 
             else:
                 sg.popup("Please select a LIF file.")
