@@ -39,6 +39,11 @@ from reportlab.platypus import (
 )
 import PySimpleGUI as sg
 
+
+
+# get file path ##
+LIF_PATH = getFilePath()
+PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
 # ---- General helpers ----
 def getFilePath():
 
@@ -825,8 +830,7 @@ def print_console_report(records):
 
 
 # ---- Main ----
-LIF_PATH = getFilePath()
-PDF_PATH = LIF_PATH.parent / f"{LIF_PATH.stem}_metadata_report.pdf"
+
 def main():
     
     print(f"\n{'=' * 80}\nLEICA LIF METADATA EXTRACTOR\n{'=' * 80}")
