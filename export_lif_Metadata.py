@@ -44,7 +44,6 @@ def getFilePath():
 
     layout = [
         [sg.Text("Select a LIF file:")],
-
         [
             sg.Input(key="-FILE-", size=(50, 1)),
             sg.FileBrowse(
@@ -52,7 +51,6 @@ def getFilePath():
                 file_types=(("LIF Files", "*.lif"),)
             )
         ],
-
         [sg.Button("OK"), sg.Button("Cancel")]
     ]
 
@@ -66,15 +64,14 @@ def getFilePath():
             return None
 
         if event == "OK":
-
             file_path = values["-FILE-"]
 
             if file_path:
                 window.close()
-                return Path(file_path)
+                return Path(file_path)   # <-- important
 
             else:
-                sg.popup("Please select a LIF file.")
+                sg.popup("Please select a LIF file")
 
     window.close()
   
